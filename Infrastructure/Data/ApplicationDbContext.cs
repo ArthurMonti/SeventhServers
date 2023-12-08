@@ -1,9 +1,10 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using SeventhServers.Domain.Abstractions.Repositories;
 
 namespace SeventhServers.Infrastructure.Data;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : DbContext, IUnitOfWork
 {
     public ApplicationDbContext(DbContextOptions options) : base(options)
     {

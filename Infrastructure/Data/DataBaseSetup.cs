@@ -8,7 +8,7 @@ namespace SeventhServers.Infrastructure.Data
         {
             services.AddDbContext<ApplicationDbContext>(opt =>
             {
-                opt.UseSqlServer(connectionString);
+                opt.UseNpgsql(connectionString);
             });
             
             return services;

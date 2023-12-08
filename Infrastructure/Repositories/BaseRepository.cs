@@ -10,6 +10,8 @@ namespace SeventhServers.Infrastructure.Repositories
         private readonly ApplicationDbContext _context;
         protected DbSet<T> _dataSet;
 
+        public IUnitOfWork UnitOfWork => _context;
+
         public BaseRepository(ApplicationDbContext context)
         {
             _context = context;
