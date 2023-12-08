@@ -9,6 +9,12 @@ namespace SeventhServers.Domain
         public bool IsSuccess { get; protected set; } = true;
         public string ErrorCode { get; protected set; }
 
+
+        public static Result<T> Created(T data)
+        {
+            return new() { StatusCode = (int)HttpStatusCode.Created, Data = data };
+        }
+
         public static Result<T> Success(T data)
         {
             return new() { StatusCode = (int)HttpStatusCode.OK, Data = data };

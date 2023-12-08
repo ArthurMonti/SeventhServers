@@ -8,7 +8,6 @@ public class ApplicationDbContext : DbContext, IUnitOfWork
 {
     public ApplicationDbContext(DbContextOptions options) : base(options)
     {
-        ChangeTracker.LazyLoadingEnabled = true;
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

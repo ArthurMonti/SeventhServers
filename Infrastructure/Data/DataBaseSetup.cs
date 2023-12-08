@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SeventhServers.Domain.Abstractions.Repositories;
+using SeventhServers.Infrastructure.Repositories;
 
 namespace SeventhServers.Infrastructure.Data
 {
@@ -10,6 +12,9 @@ namespace SeventhServers.Infrastructure.Data
             {
                 opt.UseNpgsql(connectionString);
             });
+
+            services.AddScoped<IServerRepository, ServerRepository>();
+            services.AddScoped<IVideoRepository, VideoRepository>();
             
             return services;
         }
