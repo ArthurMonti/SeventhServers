@@ -20,6 +20,17 @@ namespace SeventhServers.Domain
             return new() { StatusCode = (int)HttpStatusCode.OK, Data = data };
         }
 
+        public static Result<T> NoContent()
+        {
+            return new()
+            {
+                IsSuccess = false,
+                StatusCode = (int)HttpStatusCode.NoContent
+            };
+        }
+
+
+
         public static Result<T> Failure(string errorCode)
         {
             return new()

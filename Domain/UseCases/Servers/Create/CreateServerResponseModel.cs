@@ -2,9 +2,9 @@
 
 public class CreateServerResponseModel
 {
-    public Guid Id { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public string Name { get; set; }
-    public string Ip { get; set; }
-    public int Port { get; set; }
+    public Guid Id { get; init; }
+    public DateTime CreatedAt { get; init; }
+    public string Name { get; init; }
+    public string Ip { get; init; }
+    public int Port { get; init; }
 }

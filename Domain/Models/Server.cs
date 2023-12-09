@@ -19,5 +19,14 @@ namespace SeventhServers.Domain.Models
                 CreatedAt = DateTime.Now,
             };
         }
+
+        public void Update(string Name, string Ip, int Port)
+        {
+            this.Name = Name;
+            this.Ip = Ip;
+            this.Port = Port;
+        }
+
+        
     }
 }

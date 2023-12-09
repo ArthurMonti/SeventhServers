@@ -28,6 +28,10 @@ internal class ServerMap : IEntityTypeConfiguration<Server>
         builder
             .Property(x => x.Port)
             .IsRequired();
+
+        builder
+            .Property(x => x.DeletedAt)
+            .IsRequired(false);
        
 
         builder
