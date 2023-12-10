@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SeventhServers.Domain.Abstractions.FileManagement;
 using SeventhServers.Domain.Abstractions.Repositories;
+using SeventhServers.Infrastructure.FileManagement;
 using SeventhServers.Infrastructure.Repositories;
 
 namespace SeventhServers.Infrastructure.Data
@@ -15,7 +17,8 @@ namespace SeventhServers.Infrastructure.Data
 
             services.AddScoped<IServerRepository, ServerRepository>();
             services.AddScoped<IVideoRepository, VideoRepository>();
-            
+
+            services.AddScoped<IVideoFileManagement, VideoFileManagement>();
             return services;
         }
     }

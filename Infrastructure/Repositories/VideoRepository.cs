@@ -1,4 +1,5 @@
-﻿using SeventhServers.Domain.Abstractions.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using SeventhServers.Domain.Abstractions.Repositories;
 using SeventhServers.Domain.Models;
 using SeventhServers.Infrastructure.Data;
 
@@ -9,6 +10,16 @@ namespace SeventhServers.Infrastructure.Repositories
         public VideoRepository(ApplicationDbContext context) : base(context)
         {
 
+        }
+
+        public async Task<IEnumerable<Video>> GetAllByServerId(Guid serverId)
+        {
+           return await _dataSet.Include(x => x.Server).Where(x => x.Server.Id == serverId).ToListAsync();
+        }
+
+        public new async Task<Video> GetAsync(Guid id)
+        {
+            return await _dataSet.Include(x => x.Server).SingleOrDefaultAsync(x => x.Id == id);
         }
     }
 }

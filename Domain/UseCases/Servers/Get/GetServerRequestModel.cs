@@ -1,6 +1,4 @@
 ﻿using MediatR;
-using SeventhServers.Domain.UseCases.Servers.Update;
-
 
 namespace SeventhServers.Domain.UseCases.Servers.Get;
 

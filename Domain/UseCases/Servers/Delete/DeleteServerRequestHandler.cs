@@ -17,7 +17,7 @@ public class DeleteServerRequestHandler : IRequestHandler<DeleteServerRequestMod
     public async Task<Result<DeleteServerResponseModel>> Handle(DeleteServerRequestModel request, CancellationToken cancellationToken)
     {
 
-        var server = await _repository.GetAsync(request.serverId);
+        var server = await _repository.GetAsync(request.ServerId);
         if(server.DeletedAt == null)
         {
             server.Delete();

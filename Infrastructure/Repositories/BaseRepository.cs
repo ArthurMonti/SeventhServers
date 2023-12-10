@@ -18,12 +18,12 @@ namespace SeventhServers.Infrastructure.Repositories
             _dataSet = context.Set<T>();
         }
 
-        public virtual async Task<T> GetAsync(Guid id)
+        public async Task<T> GetAsync(Guid id)
         {
-            return await _dataSet.FindAsync(id);
+            return await _dataSet.SingleOrDefaultAsync(x=> x.Id == id);
         }
 
-        public virtual async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
             return await _dataSet.ToListAsync();
         }

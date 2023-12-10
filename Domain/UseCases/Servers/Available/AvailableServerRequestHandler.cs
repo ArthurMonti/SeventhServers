@@ -17,7 +17,7 @@ public class AvailableServerRequestHandler : IRequestHandler<AvailableServerRequ
     public async Task<Result<AvailableServerResponseModel>> Handle(AvailableServerRequestModel request, CancellationToken cancellationToken)
     {
 
-        var server = await _repository.GetAsync(request.serverId);
+        var server = await _repository.GetAsync(request.ServerId);
 
         return Result<AvailableServerResponseModel>
             .Success(new AvailableServerResponseModel()

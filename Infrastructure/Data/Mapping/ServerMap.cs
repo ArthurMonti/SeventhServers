@@ -32,7 +32,11 @@ internal class ServerMap : IEntityTypeConfiguration<Server>
         builder
             .Property(x => x.DeletedAt)
             .IsRequired(false);
-       
+
+        builder
+            .HasMany(x => x.Videos)
+            .WithOne(x => x.Server);
+
 
         builder
             .ToTable("Server");

@@ -7,7 +7,11 @@ using SeventhServers.Domain.UseCases.Servers.Get;
 using SeventhServers.Domain.UseCases.Servers.GetAll;
 using SeventhServers.Domain.UseCases.Servers.Ping;
 using SeventhServers.Domain.UseCases.Servers.Update;
-using System.Net.NetworkInformation;
+using SeventhServers.Domain.UseCases.Videos.Create;
+using SeventhServers.Domain.UseCases.Videos.Delete;
+using SeventhServers.Domain.UseCases.Videos.GetAll;
+using SeventhVideos.Domain.UseCases.Videos.Get;
+using SeventhVideos.Domain.UseCases.Videos.GetBinary;
 
 namespace SeventhServers.Controllers
 {
@@ -19,7 +23,7 @@ namespace SeventhServers.Controllers
         {
         }
 
-        [HttpPost("/api/server")]
+        [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateServerRequestModel request, CancellationToken cancellationToken)
         {
             return await SendAsync<CreateServerRequestModel, CreateServerResponseModel>(request, cancellationToken);
@@ -56,11 +60,42 @@ namespace SeventhServers.Controllers
             return await SendAsync<DeleteServerRequestModel, DeleteServerResponseModel>(request, cancellationToken);
         }
 
-        [HttpPut("{serverId")]
-        public async Task<IActionResult> Delete([FromRoute] Guid serverId, [FromBody] UpdateServerRequestModel request, CancellationToken cancellationToken)
+        [HttpPut("{serverId}")]
+        public async Task<IActionResult> Update([FromRoute] Guid serverId, [FromBody] UpdateServerRequestModel request, CancellationToken cancellationToken)
         {
-            request.ServerId = serverId;
+            request.SetServerId(serverId);
             return await SendAsync<UpdateServerRequestModel, UpdateServerResponseModel>(request, cancellationToken);
+        }
+
+        [HttpPost("{serverId}/Videos")]
+        public async Task<IActionResult> PostVideo([FromRoute] Guid serverId, [FromBody] CreateVideoRequestModel request, CancellationToken cancellationToken)
+        {
+            request.SetServerId(serverId);
+            return await SendAsync<CreateVideoRequestModel, CreateVideoResponseModel>(request, cancellationToken);
+        }
+
+        [HttpGet("{serverId}/Videos")]
+        public async Task<IActionResult> GetAllVideo([FromRoute] GetAllVideoRequestModel request, CancellationToken cancellationToken)
+        {
+            return await SendAsync<GetAllVideoRequestModel, GetAllVideoResponseModel>(request, cancellationToken);
+        }
+
+        [HttpGet("{ServerId}/Videos/{VideoId}")]
+        public async Task<IActionResult> GetVideo([FromRoute] GetVideoRequestModel request, CancellationToken cancellationToken)
+        {
+            return await SendAsync<GetVideoRequestModel, GetVideoResponseModel>(request, cancellationToken);
+        }
+
+        [HttpGet("{ServerId}/Videos/{VideoId}/binary")]
+        public async Task<IActionResult> GetVideoBinary([FromRoute] GetVideoBinaryRequestModel request, CancellationToken cancellationToken)
+        {
+            return await SendAsync<GetVideoBinaryRequestModel, GetVideoBinaryResponseModel>(request, cancellationToken);
+        }
+
+        [HttpDelete("{ServerId}/Videos/{VideoId}")]
+        public async Task<IActionResult> DeleteVideo([FromRoute] DeleteVideoRequestModel request, CancellationToken cancellationToken)
+        {
+            return await SendAsync<DeleteVideoRequestModel, DeleteVideoResponseModel>(request, cancellationToken);
         }
     }
 }

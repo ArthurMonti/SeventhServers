@@ -8,6 +8,8 @@ namespace SeventhServers.Domain.Models
         public string Ip { get; set; }
         public int Port { get; set; }
 
+        public DateTime? DeletedAt { get; set; }
+        public virtual IEnumerable<Video> Videos { get; set; }
 
         public static Server New(string Name, string Ip, int Port)
         {
@@ -27,6 +29,11 @@ namespace SeventhServers.Domain.Models
             this.Port = Port;
         }
 
-        
+        public void Delete()
+        {
+            DeletedAt = DateTime.Now;
+        }
+
+
     }
 }
