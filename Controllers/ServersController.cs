@@ -12,6 +12,7 @@ using SeventhServers.Domain.UseCases.Videos.Delete;
 using SeventhServers.Domain.UseCases.Videos.GetAll;
 using SeventhVideos.Domain.UseCases.Videos.Get;
 using SeventhVideos.Domain.UseCases.Videos.GetBinary;
+using SeventhVideos.Domain.UseCases.Videos.Recycler;
 
 namespace SeventhServers.Controllers
 {
