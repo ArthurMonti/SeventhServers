@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using SeventhServers.Domain.Abstractions.Repositories;
+using SeventhServers.Domain.MessageErrors;
 using SeventhServers.Domain.Models;
 using SeventhServers.Domain.ViewModels;
 
@@ -18,6 +19,11 @@ public class AvailableServerRequestHandler : IRequestHandler<AvailableServerRequ
     {
 
         var server = await _repository.GetAsync(request.ServerId);
+
+        if(server == null)
+        {
+            return Result<AvailableServerResponseModel>.Failure(ServerError.SERVER_ALREADY_EXISTS);
+        }
 
         return Result<AvailableServerResponseModel>
             .Success(new AvailableServerResponseModel()

@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using SeventhServers.Domain.Abstractions.Repositories;
+using SeventhServers.Domain.MessageErrors;
 using SeventhServers.Domain.Models;
+using SeventhServers.Domain.UseCases.Servers.Available;
 using SeventhServers.Domain.ViewModels;
 
 namespace SeventhServers.Domain.UseCases.Servers.Delete;
@@ -18,13 +20,15 @@ public class DeleteServerRequestHandler : IRequestHandler<DeleteServerRequestMod
     {
 
         var server = await _repository.GetAsync(request.ServerId);
-        if(server.DeletedAt == null)
-        {
-            server.Delete();
-            await _repository.UpdateAsync(server);
-            await _repository.UnitOfWork.Commit();
 
+        if(server == null || server.DeletedAt != null)
+        {
+            return Result<DeleteServerResponseModel>.Failure(ServerError.SERVER_NOT_EXISTS);
         }
+
+        server.Delete();
+        await _repository.UpdateAsync(server);
+        await _repository.UnitOfWork.Commit();
 
         return Result<DeleteServerResponseModel>
             .Success(new DeleteServerResponseModel());

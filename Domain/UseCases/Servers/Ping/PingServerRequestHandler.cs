@@ -19,7 +19,7 @@ public class PingServerRequestHandler : IRequestHandler<PingServerRequestModel, 
 
         var server = await _repository.GetByIPPort(request.Ip, request.Port);
 
-        if(server.DeletedAt != null)
+        if(server == null || server.DeletedAt != null)
         {
             return Result<PingServerResponseModel>.NoContent();
         }

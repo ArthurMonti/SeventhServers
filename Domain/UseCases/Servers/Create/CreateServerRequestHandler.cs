@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using SeventhServers.Domain.Abstractions.Repositories;
+using SeventhServers.Domain.MessageErrors;
 using SeventhServers.Domain.Models;
 
 namespace SeventhServers.Domain.UseCases.Servers.Create;
@@ -17,6 +18,13 @@ public class CreateServerRequestHandler : IRequestHandler<CreateServerRequestMod
     {
 
         var createdServer = Server.New(request.Name, request.Ip, request.Port);
+
+        var existServer = _repository.GetByIPPort(request.Ip, request.Port) == null;
+
+        if(existServer)
+        {
+            return Result<CreateServerResponseModel>.Failure(ServerError.SERVER_ALREADY_EXISTS);
+        }
 
         await _repository.InsertAsync(createdServer);
         await _repository.UnitOfWork.Commit();

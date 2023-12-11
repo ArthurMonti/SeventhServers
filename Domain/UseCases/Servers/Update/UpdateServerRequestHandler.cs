@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using SeventhServers.Domain.Abstractions.Repositories;
+using SeventhServers.Domain.MessageErrors;
 using SeventhServers.Domain.Models;
+using SeventhServers.Domain.UseCases.Servers.Get;
 using SeventhServers.Domain.ViewModels;
 
 namespace SeventhServers.Domain.UseCases.Servers.Update;
@@ -18,6 +20,11 @@ public class UpdateServerRequestHandler : IRequestHandler<UpdateServerRequestMod
     {
 
         var server = await _repository.GetAsync(request.ServerId);
+
+        if(server != null && server.DeletedAt != null)
+        {
+            return Result<UpdateServerResponseModel>.Failure(ServerError.SERVER_NOT_EXISTS);
+        }
 
         server.Update(request.Name,request.Ip,request.Port);
 
